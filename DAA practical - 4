@@ -1,0 +1,126 @@
+```cpp
+#include <iostream>
+#include <chrono>
+
+using namespace std;
+using namespace chrono;
+
+// =====================================================
+// ITERATIVE FACTORIAL
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+// =====================================================
+
+unsigned long long factorialIterative(int n)
+{
+    unsigned long long result = 1;
+
+    for (int i = 1; i <= n; i++)
+    {
+        result *= i;
+    }
+
+    return result;
+}
+
+// =====================================================
+// RECURSIVE FACTORIAL
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+// =====================================================
+
+unsigned long long factorialRecursive(int n)
+{
+    if (n <= 1)
+    {
+        return 1;
+    }
+
+    return n * factorialRecursive(n - 1);
+}
+
+// =====================================================
+// MAIN FUNCTION
+// =====================================================
+
+int main()
+{
+    int n;
+
+    // ---------------- INPUT ----------------
+    cout << "Enter a non-negative integer: ";
+    cin >> n;
+
+    if (cin.fail() || n < 0)
+    {
+        cout << "Invalid input! Please enter a non-negative integer."
+             << endl;
+        return 1;
+    }
+
+    // =================================================
+    // ITERATIVE METHOD
+    // =================================================
+
+    auto startIterative = high_resolution_clock::now();
+
+    unsigned long long resultIterative =
+        factorialIterative(n);
+
+    auto endIterative = high_resolution_clock::now();
+
+    duration<double, nano> timeIterative =
+        endIterative - startIterative;
+
+    // =================================================
+    // RECURSIVE METHOD
+    // =================================================
+
+    auto startRecursive = high_resolution_clock::now();
+
+    unsigned long long resultRecursive =
+        factorialRecursive(n);
+
+    auto endRecursive = high_resolution_clock::now();
+
+    duration<double, nano> timeRecursive =
+        endRecursive - startRecursive;
+
+    // =================================================
+    // DISPLAY RESULTS
+    // =================================================
+
+    cout << "\n======================================" << endl;
+    cout << "       FACTORIAL CALCULATION" << endl;
+    cout << "======================================" << endl;
+
+    cout << "Input Number : " << n << endl;
+
+    cout << "\n--- Iterative Method ---" << endl;
+    cout << "Factorial    : " << resultIterative << endl;
+    cout << "Time         : "
+         << timeIterative.count() << " ns" << endl;
+
+    cout << "\n--- Recursive Method ---" << endl;
+    cout << "Factorial    : " << resultRecursive << endl;
+    cout << "Time         : "
+         << timeRecursive.count() << " ns" << endl;
+
+    cout << "\n======================================" << endl;
+
+    // Verify both methods
+    if (resultIterative == resultRecursive)
+    {
+        cout << "Both methods produced the same result."
+             << endl;
+    }
+    else
+    {
+        cout << "Results are different." << endl;
+    }
+
+    cout << "======================================" << endl;
+
+    return 0;
+}
+```
